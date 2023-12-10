@@ -8,10 +8,11 @@ import jakarta.persistence.Id;
 import jakarta.persistence.Table;
 import java.math.BigDecimal;
 import lombok.Data;
+import lombok.ToString;
 
 @Entity
-@Data
 @Table(name = "books")
+@Data
 public class Book {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
@@ -20,6 +21,7 @@ public class Book {
     private String title;
     @Column(nullable = false)
     private String author;
+    @ToString.Exclude
     @Column(unique = true, nullable = false)
     private String isbn;
     @Column(nullable = false)
@@ -27,7 +29,4 @@ public class Book {
     private String description;
     private String coverImage;
 
-    public Book() {
-
-    }
 }

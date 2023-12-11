@@ -1,6 +1,5 @@
 package mate.academy.bookshop.controller;
 
-import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
 import java.util.List;
 import lombok.RequiredArgsConstructor;
 import mate.academy.bookshop.dto.BookDto;
@@ -13,7 +12,6 @@ import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
-@JsonIgnoreProperties(ignoreUnknown = true)
 @RequiredArgsConstructor
 @RestController
 @RequestMapping(value = "/books")

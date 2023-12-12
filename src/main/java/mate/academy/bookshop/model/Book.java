@@ -10,8 +10,8 @@ import java.math.BigDecimal;
 import lombok.Data;
 
 @Entity
-@Data
 @Table(name = "books")
+@Data
 public class Book {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
@@ -27,7 +27,4 @@ public class Book {
     private String description;
     private String coverImage;
 
-    public Book() {
-
-    }
 }

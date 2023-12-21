@@ -14,7 +14,6 @@ public class UserRegistrationRequestDto {
     private static final String INCORRECT_EMAIL_FORMAT = "Incorrect email format";
 
     @Email(message = INCORRECT_EMAIL_FORMAT)
-    @NotBlank(message = NOT_BE_NULL)
     private String email;
 
     @NotBlank(message = NOT_BE_NULL)

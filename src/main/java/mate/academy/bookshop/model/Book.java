@@ -24,7 +24,7 @@ public class Book {
     @Column(name = "title", nullable = false)
     private String title;
 
-    @Column(name = "author",nullable = false)
+    @Column(name = "author", nullable = false)
     private String author;
 
     @Column(name = "isbn", unique = true, nullable = false)
@@ -42,6 +42,3 @@ public class Book {
     @Column(name = "is_deleted", nullable = false)
     private boolean isDeleted = false;
 }
-
-
-

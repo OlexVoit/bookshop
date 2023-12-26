@@ -45,14 +45,11 @@ public class CustomGlobalExceptionHandler extends ResponseEntityExceptionHandler
         return error.getDefaultMessage();
     }
 
-    @ExceptionHandler(EntityNotFoundException.class)
-    protected ResponseEntity<Object> handleEntityNotFoundException(Exception ex) {
-        return new ResponseEntity<>(getBody(ex, HttpStatus.NOT_FOUND), HttpStatus.NOT_FOUND);
-    }
-
-    @ExceptionHandler(RegistrationException.class)
-    protected ResponseEntity<Object> handleRegistrationException(Exception ex) {
-        return new ResponseEntity<>(getBody(ex, HttpStatus.BAD_REQUEST), HttpStatus.BAD_REQUEST);
+    @ExceptionHandler({EntityNotFoundException.class, RegistrationException.class})
+    protected ResponseEntity<Object> handleException(Exception ex) {
+        HttpStatus status = (ex instanceof EntityNotFoundException)
+                ? HttpStatus.NOT_FOUND : HttpStatus.BAD_REQUEST;
+        return new ResponseEntity<>(getBody(ex, status), status);
     }
 
     private Map<String, Object> getBody(Exception ex, HttpStatus status) {

@@ -31,8 +31,4 @@ public class AuthenticationController {
         return userService.register(requestDto);
     }
 
-    @PostMapping("/login")
-    boolean login(@RequestBody UserLoginRequestDto requestDto) {
-        return true;
-    }
 }

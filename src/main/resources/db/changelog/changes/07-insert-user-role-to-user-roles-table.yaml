@@ -1,9 +1,14 @@
 databaseChangeLog:
   - changeSet:
-      id: insert-users-roles
+      id: insert-users-roles-admin
       author: Oleksand voitenko
       changes:
-        - insert:
+        - preConditions:
+            - onFail: MARK_RAN
+              sqlCheck:
+                expectedResult: 0
+                sql: SELECT COUNT(*) FROM users_roles WHERE role_id = (SELECT id FROM roles WHERE role_name = 'ADMIN') AND user_id = (SELECT id FROM users WHERE email = 'admin@admin.com')
+          insert:
             tableName: users_roles
             columns:
               - column:
@@ -12,7 +17,17 @@ databaseChangeLog:
               - column:
                   name: user_id
                   valueComputed: (SELECT id FROM users WHERE email = 'admin@admin.com')
-        - insert:
+
+  - changeSet:
+      id: insert-users-roles-user
+      author: Oleksand voitenko
+      changes:
+        - preConditions:
+            - onFail: MARK_RAN
+              sqlCheck:
+                expectedResult: 0
+                sql: SELECT COUNT(*) FROM users_roles WHERE role_id = (SELECT id FROM roles WHERE role_name = 'USER') AND user_id = (SELECT id FROM users WHERE email = 'user@user.com')
+          insert:
             tableName: users_roles
             columns:
               - column:

@@ -2,6 +2,7 @@ package mate.academy.bookshop.controller;
 
 import io.swagger.v3.oas.annotations.Operation;
 import io.swagger.v3.oas.annotations.tags.Tag;
+import jakarta.validation.Valid;
 import lombok.RequiredArgsConstructor;
 import mate.academy.bookshop.dto.user.UserRegistrationRequestDto;
 import mate.academy.bookshop.dto.user.UserResponseDto;
@@ -24,8 +25,9 @@ public class AuthenticationController {
     @PostMapping("/registration")
     @ResponseStatus(HttpStatus.CREATED)
     @Operation(summary = "Register a new user")
-    UserResponseDto registerUser(@RequestBody UserRegistrationRequestDto requestDto)
+    UserResponseDto registerUser(@RequestBody @Valid UserRegistrationRequestDto requestDto)
             throws RegistrationException {
         return userService.register(requestDto);
     }
+
 }

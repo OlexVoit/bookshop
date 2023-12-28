@@ -2,14 +2,14 @@ package mate.academy.bookshop.dto.book;
 
 import jakarta.validation.constraints.Min;
 import jakarta.validation.constraints.NotNull;
-import jakarta.validation.constraints.Size;
 import java.math.BigDecimal;
 import lombok.Data;
+import org.hibernate.validator.constraints.ISBN;
 
 @Data
 public class CreateBookRequestDto {
     private static final String NOT_BE_NULL = "Don't be null";
-    private static final String BE_11_TO_13_CHARACTERS = "Must contain 11 to 13 characters long";
+    private static final String ISBN_IS_INCORRECT = "isbn is incorrect";
 
     @NotNull(message = NOT_BE_NULL)
     private String title;
@@ -18,7 +18,7 @@ public class CreateBookRequestDto {
     private String author;
 
     @NotNull
-    @Size(min = 11, max = 13, message = BE_11_TO_13_CHARACTERS)
+    @ISBN(message = ISBN_IS_INCORRECT)
     private String isbn;
 
     @NotNull(message = NOT_BE_NULL)

@@ -1,0 +1,41 @@
+databaseChangeLog:
+  - changeSet:
+      id: insert-users
+      author: voitenko
+      changes:
+        - insert:
+            tableName: users
+            columns:
+              - column:
+                  name: email
+                  value: admin@admin.com
+              - column:
+                  name: password
+                  value: $2a$10$ZX1G7nAZe9o9Ieg9STjXQe5MCL4OhJ7KWxCKzOX9Y4vfsKnviRxOG
+              - column:
+                  name: first_name
+                  value: Bob
+              - column:
+                  name: last_name
+                  value: Ivashchuk
+              - column:
+                  name: shipping_address
+                  value: New York, Main Street.
+        - insert:
+            tableName: users
+            columns:
+              - column:
+                  name: email
+                  value: user@user.com
+              - column:
+                  name: password
+                  value: $2a$10$LmlI8w/AjPQt.OO1PwCAoOzax3GSPQ36zjWWFu.HhG/C1/hDbFxS2
+              - column:
+                  name: first_name
+                  value: Emma
+              - column:
+                  name: last_name
+                  value: Dumna
+              - column:
+                  name: shipping_address
+                  value: LA, Main Street.

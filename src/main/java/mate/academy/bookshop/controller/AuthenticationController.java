@@ -4,7 +4,6 @@ import io.swagger.v3.oas.annotations.Operation;
 import io.swagger.v3.oas.annotations.tags.Tag;
 import jakarta.validation.Valid;
 import lombok.RequiredArgsConstructor;
-import mate.academy.bookshop.dto.user.UserLoginRequestDto;
 import mate.academy.bookshop.dto.user.UserRegistrationRequestDto;
 import mate.academy.bookshop.dto.user.UserResponseDto;
 import mate.academy.bookshop.exception.RegistrationException;

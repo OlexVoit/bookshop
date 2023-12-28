@@ -35,7 +35,7 @@ public class AuthenticationController {
     }
 
     @ResponseStatus(HttpStatus.ACCEPTED)
-    @Operation(summary = "Log in to your account")
+    @Operation(summary = "Log into account")
     @PostMapping("/login")
     public UserLoginResponseDto login(@RequestBody UserLoginRequestDto requestDto) {
         return authenticationService.authentication(requestDto);

@@ -18,7 +18,7 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.ResponseStatus;
 import org.springframework.web.bind.annotation.RestController;
 
-@Tag(name = "Users", description = "Operations related to users")
+@Tag(name = "Users", description = "Operations related to users.")
 @RequiredArgsConstructor
 @RestController
 @RequestMapping(value = "/api/auth")

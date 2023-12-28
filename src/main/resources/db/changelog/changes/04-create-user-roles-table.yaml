@@ -11,7 +11,7 @@ databaseChangeLog:
                   type: bigint
                   constraints:
                     nullable: false
-                    foreignKeyName: role_foreignKey
+                    foreignKeyName: fk_users_roles_role
                     references: roles(id)
                     deleteCascade: true
                     primaryKey: true
@@ -20,7 +20,7 @@ databaseChangeLog:
                   type: bigint
                   constraints:
                     nullable: false
-                    foreignKeyName: user_foreignKey
+                    foreignKeyName: fk_users_roles_user
                     references: users(id)
                     deleteCascade: true
                     primaryKey: true

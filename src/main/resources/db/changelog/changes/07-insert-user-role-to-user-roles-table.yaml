@@ -1,38 +1,36 @@
 databaseChangeLog:
   - changeSet:
-      id: insert-users-roles-admin
-      author: Oleksand voitenko
+      id: insert-users-roles
+      author: voitenko
+      preConditions:
+        - sqlCheck:
+            expectedResult: 1
+            sql: SELECT COUNT(*) FROM users WHERE email='admin@admin.com'
+        - sqlCheck:
+            expectedResult: 1
+            sql: SELECT COUNT(*) FROM users WHERE email='user@user.com'
+        - sqlCheck:
+            expectedResult: 1
+            sql: SELECT COUNT(*) FROM roles WHERE role_name='ADMIN'
+        - sqlCheck:
+            expectedResult: 1
+            sql: SELECT COUNT(*) FROM roles WHERE role_name='USER'
       changes:
-        - preConditions:
-            - onFail: MARK_RAN
-              sqlCheck:
-                expectedResult: 0
-                sql: SELECT COUNT(*) FROM users_roles WHERE role_id = (SELECT id FROM roles WHERE role_name = 'ADMIN') AND user_id = (SELECT id FROM users WHERE email = 'admin@admin.com')
-          insert:
+        - insert:
             tableName: users_roles
             columns:
               - column:
-                  name: role_id
-                  valueComputed: (SELECT id FROM roles WHERE role_name = 'ADMIN')
-              - column:
                   name: user_id
-                  valueComputed: (SELECT id FROM users WHERE email = 'admin@admin.com')
-
-  - changeSet:
-      id: insert-users-roles-user
-      author: Oleksand voitenko
-      changes:
-        - preConditions:
-            - onFail: MARK_RAN
-              sqlCheck:
-                expectedResult: 0
-                sql: SELECT COUNT(*) FROM users_roles WHERE role_id = (SELECT id FROM roles WHERE role_name = 'USER') AND user_id = (SELECT id FROM users WHERE email = 'user@user.com')
-          insert:
+                  valueComputed: (SELECT id FROM users WHERE email='admin@admin.com')
+              - column:
+                  name: role_id
+                  valueComputed: (SELECT id FROM roles WHERE role_name='ADMIN')
+        - insert:
             tableName: users_roles
             columns:
               - column:
-                  name: role_id
-                  valueComputed: (SELECT id FROM roles WHERE role_name = 'USER')
-              - column:
                   name: user_id
-                  valueComputed: (SELECT id FROM users WHERE email = 'user@user.com')
+                  valueComputed: (SELECT id FROM users WHERE email='user@user.com')
+              - column:
+                  name: role_id
+                  valueComputed: (SELECT id FROM roles WHERE role_name='USER')

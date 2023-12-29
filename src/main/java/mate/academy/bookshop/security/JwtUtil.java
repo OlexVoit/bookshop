@@ -1,4 +1,4 @@
-package mate.academy.rickandmorty.asd.security;
+package mate.academy.bookshop.security;
 
 import io.jsonwebtoken.Claims;
 import io.jsonwebtoken.Jws;

@@ -1,4 +1,4 @@
-package mate.academy.rickandmorty.asd.security.user;
+package mate.academy.bookshop.dto.user;
 
 public record UserLoginResponseDto(String token) {
 }

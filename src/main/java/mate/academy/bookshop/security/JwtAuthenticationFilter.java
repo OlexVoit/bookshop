@@ -1,4 +1,4 @@
-package mate.academy.rickandmorty.asd.security;
+package mate.academy.bookshop.security;
 
 import jakarta.servlet.FilterChain;
 import jakarta.servlet.ServletException;

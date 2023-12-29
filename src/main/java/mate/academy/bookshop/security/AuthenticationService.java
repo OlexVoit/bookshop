@@ -1,4 +1,4 @@
-package mate.academy.rickandmorty.asd.security;
+package mate.academy.bookshop.security;
 
 import lombok.RequiredArgsConstructor;
 import mate.academy.bookshop.dto.user.UserLoginRequestDto;

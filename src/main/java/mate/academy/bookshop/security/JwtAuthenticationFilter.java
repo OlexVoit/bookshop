@@ -20,7 +20,7 @@ import org.springframework.web.filter.OncePerRequestFilter;
 public class JwtAuthenticationFilter extends OncePerRequestFilter {
     private static final String HEADER = "Authorization";
     private static final String TOKEN_START = "Bearer ";
-    private static final int INDEX_FROM = 7;
+    private static final int INDEX_FROM = 6;
     private final JwtUtil jwtUtil;
     private final UserDetailsService userDetailsService;
 

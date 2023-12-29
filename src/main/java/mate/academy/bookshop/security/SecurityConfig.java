@@ -1,4 +1,4 @@
-package mate.academy.bookshop.config;
+package mate.academy.bookshop.security;
 
 import lombok.RequiredArgsConstructor;
 import mate.academy.bookshop.security.JwtAuthenticationFilter;

@@ -31,7 +31,8 @@ public class BookController {
     @PreAuthorize("hasAnyRole('USER', 'ADMIN')")
     @GetMapping
     @Operation(summary = "Get books",
-            description = "Get a list of books by parameter ")
+            description = "The administrator and user can get "
+                    + "a list of books by the following parameters")
     public List<BookDto> findAll(Pageable pageable) {
         return bookService.findAll(pageable);
     }
@@ -39,14 +40,16 @@ public class BookController {
     @PreAuthorize("hasAnyRole('ADMIN')")
     @PostMapping
     @ResponseStatus(HttpStatus.CREATED)
-    @Operation(summary = "Save book", description = "Only the administrator can create a new book")
+    @Operation(summary = "Save book",
+            description = "Only the administrator can create a new book")
     public BookDto save(@RequestBody @Valid CreateBookRequestDto requestDto) {
         return bookService.save(requestDto);
     }
 
     @PreAuthorize("hasAnyRole('USER', 'ADMIN')")
     @GetMapping("/{id}")
-    @Operation(summary = "Find a book", description = "Find a book by id")
+    @Operation(summary = "Find a book",
+            description = "The administrator and user can find a book by id")
     public BookDto findById(@PathVariable Long id) {
         return bookService.findById(id);
     }

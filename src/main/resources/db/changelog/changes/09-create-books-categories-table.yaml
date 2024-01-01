@@ -11,7 +11,7 @@ databaseChangeLog:
                   type: bigint
                   constraints:
                     foreignKeyName: fk_books-categories_book
-                    references: roles(id)
+                    references: books(id)
                     deleteCascade: true
                     primaryKey: true
               - column:
@@ -19,6 +19,6 @@ databaseChangeLog:
                   type: bigint
                   constraints:
                     foreignKeyName: fk_books-categories_category
-                    references: users(id)
+                    references: categories(id)
                     deleteCascade: true
                     primaryKey: true

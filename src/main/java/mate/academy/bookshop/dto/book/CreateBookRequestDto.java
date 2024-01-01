@@ -2,10 +2,8 @@ package mate.academy.bookshop.dto.book;
 
 import jakarta.validation.constraints.Min;
 import jakarta.validation.constraints.NotNull;
-
 import java.math.BigDecimal;
 import java.util.Set;
-
 import lombok.Data;
 import org.hibernate.validator.constraints.Length;
 

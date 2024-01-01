@@ -1,5 +1,7 @@
 package mate.academy.bookshop.mapper;
 
+import java.util.Set;
+import java.util.stream.Collectors;
 import mate.academy.bookshop.config.MapperConfig;
 import mate.academy.bookshop.dto.book.BookDto;
 import mate.academy.bookshop.dto.book.BookDtoWithoutCategoryIds;
@@ -11,13 +13,11 @@ import org.mapstruct.Mapper;
 import org.mapstruct.Mapping;
 import org.mapstruct.MappingTarget;
 
-import java.util.Set;
-import java.util.stream.Collectors;
-
 @Mapper(config = MapperConfig.class)
 public interface BookMapper {
     @Mapping(target = "categoryIds", ignore = true)
     BookDto toDto(Book book);
+
     @Mapping(target = "categories", ignore = true)
     Book toModel(CreateBookRequestDto requestDto);
 

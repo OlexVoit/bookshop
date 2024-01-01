@@ -1,10 +1,9 @@
 package mate.academy.bookshop.service;
 
+import java.util.List;
 import mate.academy.bookshop.dto.category.CategoryResponseDto;
 import mate.academy.bookshop.dto.category.CreateCategoryRequestDto;
 import org.springframework.data.domain.Pageable;
-
-import java.util.List;
 
 public interface CategoryService {
     CategoryResponseDto getCategoryById(Long id);

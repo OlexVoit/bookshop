@@ -10,12 +10,13 @@ import jakarta.persistence.JoinColumn;
 import jakarta.persistence.JoinTable;
 import jakarta.persistence.ManyToMany;
 import jakarta.persistence.Table;
-
 import java.util.Collection;
 import java.util.HashSet;
 import java.util.Set;
-
-import lombok.*;
+import lombok.Data;
+import lombok.EqualsAndHashCode;
+import lombok.NoArgsConstructor;
+import lombok.ToString;
 import org.hibernate.annotations.SQLDelete;
 import org.hibernate.annotations.SQLRestriction;
 import org.springframework.security.core.GrantedAuthority;
@@ -25,8 +26,7 @@ import org.springframework.security.core.userdetails.UserDetails;
 @Table(name = "users")
 @SQLDelete(sql = "UPDATE books SET is_deleted = true WHERE id=?")
 @SQLRestriction("is_deleted=false")
-@Setter
-@Getter
+@Data
 @NoArgsConstructor
 @ToString(exclude = {"roles"})
 @EqualsAndHashCode(exclude = {"roles"})
@@ -68,7 +68,6 @@ public class User implements UserDetails {
     public String getPassword() {
         return password;
     }
-
 
     @Override
     public String getUsername() {

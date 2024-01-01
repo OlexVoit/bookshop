@@ -1,5 +1,6 @@
 package mate.academy.bookshop.service.impl;
 
+import java.util.List;
 import lombok.RequiredArgsConstructor;
 import mate.academy.bookshop.dto.category.CategoryResponseDto;
 import mate.academy.bookshop.dto.category.CreateCategoryRequestDto;
@@ -10,8 +11,6 @@ import mate.academy.bookshop.repository.CategoryRepository;
 import mate.academy.bookshop.service.CategoryService;
 import org.springframework.data.domain.Pageable;
 import org.springframework.stereotype.Service;
-
-import java.util.List;
 
 @RequiredArgsConstructor
 @Service

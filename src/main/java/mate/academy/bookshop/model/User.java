@@ -10,11 +10,12 @@ import jakarta.persistence.JoinColumn;
 import jakarta.persistence.JoinTable;
 import jakarta.persistence.ManyToMany;
 import jakarta.persistence.Table;
+
 import java.util.Collection;
+import java.util.HashSet;
 import java.util.Set;
-import lombok.Data;
-import lombok.EqualsAndHashCode;
-import lombok.ToString;
+
+import lombok.*;
 import org.hibernate.annotations.SQLDelete;
 import org.hibernate.annotations.SQLRestriction;
 import org.springframework.security.core.GrantedAuthority;
@@ -24,7 +25,9 @@ import org.springframework.security.core.userdetails.UserDetails;
 @Table(name = "users")
 @SQLDelete(sql = "UPDATE books SET is_deleted = true WHERE id=?")
 @SQLRestriction("is_deleted=false")
-@Data
+@Setter
+@Getter
+@NoArgsConstructor
 @ToString(exclude = {"roles"})
 @EqualsAndHashCode(exclude = {"roles"})
 public class User implements UserDetails {
@@ -54,7 +57,7 @@ public class User implements UserDetails {
     @JoinTable(name = "users_roles",
             joinColumns = @JoinColumn(name = "user_id"),
             inverseJoinColumns = @JoinColumn(name = "role_id"))
-    private Set<Role> roles;
+    private Set<Role> roles = new HashSet<>();
 
     @Override
     public Collection<? extends GrantedAuthority> getAuthorities() {
@@ -65,6 +68,7 @@ public class User implements UserDetails {
     public String getPassword() {
         return password;
     }
+
 
     @Override
     public String getUsername() {

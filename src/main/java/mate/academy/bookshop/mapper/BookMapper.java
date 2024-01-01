@@ -18,7 +18,7 @@ import java.util.stream.Collectors;
 public interface BookMapper {
     @Mapping(target = "categoryIds", ignore = true)
     BookDto toDto(Book book);
-
+    @Mapping(target = "categories", ignore = true)
     Book toModel(CreateBookRequestDto requestDto);
 
     BookDtoWithoutCategoryIds toBookDtoWithoutCategoryIds(Book book);

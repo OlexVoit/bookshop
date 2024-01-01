@@ -8,7 +8,7 @@ import org.hibernate.validator.constraints.ISBN;
 
 @Data
 public class CreateBookRequestDto {
-    private static final String NOT_BE_NULL = "Don't be null";
+    private static final String NOT_BE_NULL = "Can't be null";
     private static final String ISBN_IS_INCORRECT = "isbn is incorrect";
 
     @NotNull(message = NOT_BE_NULL)

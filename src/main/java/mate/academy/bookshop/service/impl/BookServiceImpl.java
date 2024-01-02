@@ -26,7 +26,7 @@ public class BookServiceImpl implements BookService {
         List<Category> categories = categoryRepository
                 .findAllById(requestDto.getCategories());
         if (categories.isEmpty()) {
-            throw new EntityNotFoundException("There are no categories with id: "
+            throw new EntityNotFoundException("There are no categories with IDs: "
                     + requestDto.getCategories());
         }
         Book book = bookMapper.toModel(requestDto);

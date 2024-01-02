@@ -63,7 +63,7 @@ public class CategoryController {
     @Operation(summary = "Update category",
             description = "Only the administrator can change the category")
     public CategoryResponseDto updateCategory(@PathVariable Long id,
-                                              @RequestBody CreateCategoryRequestDto requestDto) {
+                                              @RequestBody @Valid CreateCategoryRequestDto requestDto) {
         return categoryService.updateCategory(id, requestDto);
     }
 
@@ -71,6 +71,7 @@ public class CategoryController {
     @DeleteMapping("/{id}")
     @Operation(summary = "Delete a category",
             description = "Only the administrator can delete a category by ID")
+    @ResponseStatus(HttpStatus.NO_CONTENT)
     public void deleteCategory(@PathVariable Long id) {
         categoryService.deleteCategoryById(id);
     }

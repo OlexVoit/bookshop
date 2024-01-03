@@ -9,7 +9,7 @@ import org.hibernate.validator.constraints.Length;
 @Data
 @FieldMatch
 public class UserRegistrationRequestDto {
-    private static final String NOT_BE_NULL = "Don't be null";
+    private static final String NOT_BE_NULL = "Can't be null";
     private static final String FROM_4_TO_24_CHARACTERS = "Must contain 6 to 24 characters long";
     private static final String INCORRECT_EMAIL_FORMAT = "Incorrect email format";
 

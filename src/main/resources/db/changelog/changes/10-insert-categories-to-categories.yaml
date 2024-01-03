@@ -1,0 +1,35 @@
+databaseChangeLog:
+  - changeSet:
+      id: insert-categories-to-categories
+      author: voitenko
+      changes:
+        - insert:
+            tableName: categories
+            columns:
+              - column:
+                  name: name
+                  value: Action/Adventure
+              - column:
+                  name: description
+                  value: High-energy films with thrilling stunts and heroic exploits. 
+                        Examples include "Indiana Jones" and "Die Hard."
+        - insert:
+            tableName: categories
+            columns:
+              - column:
+                  name: name
+                  value: Comedy
+              - column:
+                  name: description
+                  value:   Entertaining films with humor and laughter. From rom-coms 
+                          like "Bridesmaids" to slapstick like "Dumb and Dumber."
+        - insert:
+            tableName: categories
+            columns:
+              - column:
+                  name: name
+                  value: Drama
+              - column:
+                  name: description
+                  value: Emotionally engaging stories, character development. Examples include 
+                        The Shawshank Redemption and Forrest Gump.

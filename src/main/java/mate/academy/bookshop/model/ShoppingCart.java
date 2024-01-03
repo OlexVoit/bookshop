@@ -10,7 +10,6 @@ import jakarta.persistence.JoinColumn;
 import jakarta.persistence.OneToMany;
 import jakarta.persistence.OneToOne;
 import jakarta.persistence.Table;
-import jakarta.validation.constraints.NotBlank;
 import java.util.Set;
 import lombok.Data;
 import lombok.EqualsAndHashCode;
@@ -20,7 +19,7 @@ import org.hibernate.annotations.SQLRestriction;
 
 @Entity
 @Data
-@SQLDelete(sql = "UPDATE shopping_cart SET is_deleted = true WHERE id=?")
+@SQLDelete(sql = "UPDATE shopping_carts SET is_deleted = true WHERE id=?")
 @Table(name = "shopping_carts")
 @SQLRestriction("is_deleted=false")
 public class ShoppingCart {
@@ -34,10 +33,9 @@ public class ShoppingCart {
     @JoinColumn(name = "user_id", nullable = false)
     private User user;
 
-    @OneToMany(mappedBy = "shoppingCart")
+    @OneToMany(mappedBy = "shoppingCart", fetch = FetchType.LAZY)
     @EqualsAndHashCode.Exclude
     @ToString.Exclude
-    @NotBlank
     private Set<CartItem> cartItems;
 
     @Column(nullable = false)

@@ -28,19 +28,18 @@ public class ShoppingCart {
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
 
-    @OneToOne(fetch = FetchType.LAZY)
+    @OneToOne
     @EqualsAndHashCode.Exclude
     @ToString.Exclude
     @JoinColumn(name = "user_id", nullable = false)
     private User user;
 
-    @OneToMany(mappedBy = "shoppingCart", fetch = FetchType.LAZY)
+    @OneToMany(mappedBy = "shoppingCart")
     @EqualsAndHashCode.Exclude
     @ToString.Exclude
     @NotBlank
     private Set<CartItem> cartItems;
 
-    @Column(name = "is_deleted", nullable = false)
+    @Column(nullable = false)
     private boolean isDeleted = false;
 }
-

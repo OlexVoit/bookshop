@@ -55,5 +55,23 @@ public class CustomGlobalExceptionHandler extends ResponseEntityExceptionHandler
         body.put("message", ex.getMessage());
         return new ResponseEntity<>(body, status);
     }
+
+    @ExceptionHandler({UnauthorizedOperationException.class})
+    protected ResponseEntity<Object> handleExceptionUnauthorized(Exception ex) {
+        Map<String, Object> body = new LinkedHashMap<>();
+        body.put("timestamp", LocalDateTime.now());
+        body.put("status", HttpStatus.NETWORK_AUTHENTICATION_REQUIRED);
+        body.put("message", ex.getMessage());
+        return new ResponseEntity<>(body, HttpStatus.NETWORK_AUTHENTICATION_REQUIRED);
+    }
+
+    @ExceptionHandler({ResourceNotFoundException.class})
+    protected ResponseEntity<Object> handleExceptionResourceNotFound(Exception ex) {
+        Map<String, Object> body = new LinkedHashMap<>();
+        body.put("timestamp", LocalDateTime.now());
+        body.put("status", HttpStatus.NOT_FOUND);
+        body.put("message", ex.getMessage());
+        return new ResponseEntity<>(body, HttpStatus.NOT_FOUND);
+    }
 }
 

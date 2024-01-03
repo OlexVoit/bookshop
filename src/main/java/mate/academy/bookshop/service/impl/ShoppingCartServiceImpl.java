@@ -4,6 +4,7 @@ import lombok.RequiredArgsConstructor;
 import mate.academy.bookshop.dto.shoppingcart.AddToCartRequestDto;
 import mate.academy.bookshop.dto.shoppingcart.ShoppingCartDto;
 import mate.academy.bookshop.exception.EntityNotFoundException;
+import mate.academy.bookshop.mapper.ShoppingCartMapper;
 import mate.academy.bookshop.model.Book;
 import mate.academy.bookshop.model.CartItem;
 import mate.academy.bookshop.model.ShoppingCart;
@@ -14,6 +15,7 @@ import mate.academy.bookshop.repository.ShoppingCartRepository;
 import mate.academy.bookshop.repository.UserRepository;
 import mate.academy.bookshop.service.ShoppingCartService;
 import org.springframework.stereotype.Service;
+import org.springframework.transaction.annotation.Transactional;
 
 
 @Service
@@ -23,7 +25,9 @@ public class ShoppingCartServiceImpl implements ShoppingCartService {
     private final BookRepository bookRepository;
     private final UserRepository userRepository;
     private final CartItemRepository cartItemRepository;
+    private final ShoppingCartMapper shoppingCartMapper;
 
+    @Transactional
     @Override
     public ShoppingCartDto addToCart(AddToCartRequestDto requestDto, Long userId) {
         Book book = bookRepository.findById(requestDto.getBookId())
@@ -48,6 +52,6 @@ public class ShoppingCartServiceImpl implements ShoppingCartService {
         cartItem.setShoppingCart(shoppingCartFromDb);
 
         cartItemRepository.save(cartItem);
-        return null;
+        return shoppingCartMapper.toDto(shoppingCartFromDb);
     }
 }

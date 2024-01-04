@@ -45,33 +45,26 @@ public class CustomGlobalExceptionHandler extends ResponseEntityExceptionHandler
         return error.getDefaultMessage();
     }
 
-    @ExceptionHandler({EntityNotFoundException.class, RegistrationException.class})
-    protected ResponseEntity<Object> handleException(Exception ex) {
-        HttpStatus status = (ex instanceof EntityNotFoundException)
-                ? HttpStatus.NOT_FOUND : HttpStatus.BAD_REQUEST;
-        Map<String, Object> body = new LinkedHashMap<>();
-        body.put("timestamp", LocalDateTime.now());
-        body.put("status", status);
-        body.put("message", ex.getMessage());
-        return new ResponseEntity<>(body, status);
+    @ExceptionHandler({RegistrationException.class})
+    protected ResponseEntity<Object> handleExceptionRegistrationException(Exception ex) {
+        return buildErrorResponse(HttpStatus.BAD_REQUEST, ex);
     }
 
     @ExceptionHandler({UnauthorizedOperationException.class})
     protected ResponseEntity<Object> handleExceptionUnauthorized(Exception ex) {
-        Map<String, Object> body = new LinkedHashMap<>();
-        body.put("timestamp", LocalDateTime.now());
-        body.put("status", HttpStatus.NETWORK_AUTHENTICATION_REQUIRED);
-        body.put("message", ex.getMessage());
-        return new ResponseEntity<>(body, HttpStatus.NETWORK_AUTHENTICATION_REQUIRED);
+       return buildErrorResponse(HttpStatus.NETWORK_AUTHENTICATION_REQUIRED, ex);
     }
 
-    @ExceptionHandler({ResourceNotFoundException.class})
-    protected ResponseEntity<Object> handleExceptionResourceNotFound(Exception ex) {
+    @ExceptionHandler({ResourceNotFoundException.class, EntityNotFoundException.class})
+    protected ResponseEntity<Object> handleExceptionResourceNotFoundAndEntityNot(Exception ex) {
+        return  buildErrorResponse(HttpStatus.NOT_FOUND, ex);
+    }
+
+    private ResponseEntity<Object> buildErrorResponse(HttpStatus status, Exception exception){
         Map<String, Object> body = new LinkedHashMap<>();
         body.put("timestamp", LocalDateTime.now());
         body.put("status", HttpStatus.NOT_FOUND);
-        body.put("message", ex.getMessage());
-        return new ResponseEntity<>(body, HttpStatus.NOT_FOUND);
+        body.put("message", exception.getMessage());
+        return new ResponseEntity<>(body, status);
     }
 }
-

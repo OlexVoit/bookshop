@@ -57,7 +57,7 @@ public class ShoppingCartController {
         shoppingCartService.deleteCartItem(id, user.getId());
     }
 
-    @PreAuthorize("hasRole('ROLE_USER')")
+    @PreAuthorize("hasRole('USER')")
     @PutMapping("/cart-items/{id}")
     @Operation(summary = "Update books quantity",
             description = "Update quantity of a book in the shopping cart")

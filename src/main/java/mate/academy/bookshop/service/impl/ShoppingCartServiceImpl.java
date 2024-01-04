@@ -60,7 +60,7 @@ public class ShoppingCartServiceImpl implements ShoppingCartService {
                                 + "to delete this shopping cart");
                     }
                 });
-        throw new ResourceNotFoundException("The Shopping cart was not found or deleted. Id: "
+        throw new ResourceNotFoundException("The cart item was not found or deleted. Id: "
                 + cartId);
     }
 

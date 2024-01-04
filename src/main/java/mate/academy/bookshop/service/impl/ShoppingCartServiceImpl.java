@@ -3,17 +3,16 @@ package mate.academy.bookshop.service.impl;
 import java.util.Objects;
 import lombok.RequiredArgsConstructor;
 import mate.academy.bookshop.dto.shoppingcart.AddToCartRequestDto;
+import mate.academy.bookshop.dto.shoppingcart.PutCartItemRequestDto;
 import mate.academy.bookshop.dto.shoppingcart.ShoppingCartDto;
 import mate.academy.bookshop.exception.EntityNotFoundException;
 import mate.academy.bookshop.exception.ResourceNotFoundException;
 import mate.academy.bookshop.exception.UnauthorizedOperationException;
 import mate.academy.bookshop.mapper.ShoppingCartMapper;
 import mate.academy.bookshop.model.Book;
-import mate.academy.bookshop.model.CartItem;
 import mate.academy.bookshop.model.ShoppingCart;
 import mate.academy.bookshop.model.User;
 import mate.academy.bookshop.repository.BookRepository;
-import mate.academy.bookshop.repository.CartItemRepository;
 import mate.academy.bookshop.repository.ShoppingCartRepository;
 import mate.academy.bookshop.repository.UserRepository;
 import mate.academy.bookshop.service.ShoppingCartService;
@@ -26,8 +25,21 @@ public class ShoppingCartServiceImpl implements ShoppingCartService {
     private final ShoppingCartRepository shoppingCartRepository;
     private final BookRepository bookRepository;
     private final UserRepository userRepository;
-    private final CartItemRepository cartItemRepository;
     private final ShoppingCartMapper shoppingCartMapper;
+    private final CartItemServiceImpl cartItemService;
+
+
+    @Override
+    @Transactional
+    public ShoppingCartDto updateByCartId(Long userId,Long id, PutCartItemRequestDto requestDto) {
+        cartItemService.updateById(id, requestDto.getQuantity());
+        ShoppingCart shoppingCart = shoppingCartRepository.findByUserId(userId)
+                .orElseThrow(
+                        () -> new EntityNotFoundException("Can't find"
+                                + " shopping cart by user's id: " + userId)
+                );
+        return shoppingCartMapper.toDto(shoppingCart);
+    }
 
     @Override
     public ShoppingCartDto getShoppingCartByUser(Long userId) {
@@ -39,11 +51,11 @@ public class ShoppingCartServiceImpl implements ShoppingCartService {
     }
 
     @Override
-    public void deleteShoppingCartById(Long cartId, Long userId) {
+    public void deleteCartItem(Long cartId, Long userId) {
         shoppingCartRepository.findById(cartId)
                 .ifPresent(shoppingCarts -> {
                     if (Objects.equals(shoppingCarts.getUser().getId(), userId)) {
-                        shoppingCartRepository.deleteById(cartId);
+                        cartItemService.deleteCartItem(cartId);
                     } else {
                         throw new UnauthorizedOperationException("User is not authorized "
                                 + "to delete this shopping cart");
@@ -73,12 +85,7 @@ public class ShoppingCartServiceImpl implements ShoppingCartService {
                     return shoppingCart;
                 });
 
-        CartItem cartItem = new CartItem();
-        cartItem.setQuantity(requestDto.getQuantity());
-        cartItem.setBook(book);
-        cartItem.setShoppingCart(shoppingCartFromDb);
-
-        cartItemRepository.save(cartItem);
+        cartItemService.save(requestDto.getQuantity(), book, shoppingCartFromDb);
         return shoppingCartMapper.toDto(shoppingCartFromDb);
     }
 }

@@ -5,6 +5,7 @@ import io.swagger.v3.oas.annotations.tags.Tag;
 import jakarta.validation.Valid;
 import lombok.RequiredArgsConstructor;
 import mate.academy.bookshop.dto.shoppingcart.AddToCartRequestDto;
+import mate.academy.bookshop.dto.shoppingcart.PutCartItemRequestDto;
 import mate.academy.bookshop.dto.shoppingcart.ShoppingCartDto;
 import mate.academy.bookshop.model.User;
 import mate.academy.bookshop.service.ShoppingCartService;
@@ -15,6 +16,7 @@ import org.springframework.web.bind.annotation.DeleteMapping;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
+import org.springframework.web.bind.annotation.PutMapping;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.ResponseStatus;
@@ -52,6 +54,17 @@ public class ShoppingCartController {
     @DeleteMapping("/{id}")
     void delete(@PathVariable Long id, Authentication authentication) {
         User user = (User) authentication.getPrincipal();
-        shoppingCartService.deleteShoppingCartById(id, user.getId());
+        shoppingCartService.deleteCartItem(id, user.getId());
+    }
+
+    @PreAuthorize("hasRole('ROLE_USER')")
+    @PutMapping("/cart-items/{id}")
+    @Operation(summary = "Update books quantity",
+            description = "Update quantity of a book in the shopping cart")
+    public ShoppingCartDto updateById(Authentication authentication,
+                                      @PathVariable Long id,
+                                      @RequestBody @Valid PutCartItemRequestDto requestDto) {
+        User user =(User) authentication.getPrincipal();
+        return shoppingCartService.updateByCartId(user.getId(), id, requestDto);
     }
 }

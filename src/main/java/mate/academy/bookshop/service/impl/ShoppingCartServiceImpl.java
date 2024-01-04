@@ -28,7 +28,6 @@ public class ShoppingCartServiceImpl implements ShoppingCartService {
     private final ShoppingCartMapper shoppingCartMapper;
     private final CartItemServiceImpl cartItemService;
 
-
     @Override
     @Transactional
     public ShoppingCartDto updateByCartId(Long userId,Long id, PutCartItemRequestDto requestDto) {

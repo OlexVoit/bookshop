@@ -52,15 +52,15 @@ public class CustomGlobalExceptionHandler extends ResponseEntityExceptionHandler
 
     @ExceptionHandler({UnauthorizedOperationException.class})
     protected ResponseEntity<Object> handleExceptionUnauthorized(Exception ex) {
-       return buildErrorResponse(HttpStatus.NETWORK_AUTHENTICATION_REQUIRED, ex);
+        return buildErrorResponse(HttpStatus.NETWORK_AUTHENTICATION_REQUIRED, ex);
     }
 
     @ExceptionHandler({ResourceNotFoundException.class, EntityNotFoundException.class})
     protected ResponseEntity<Object> handleExceptionResourceNotFoundAndEntityNot(Exception ex) {
-        return  buildErrorResponse(HttpStatus.NOT_FOUND, ex);
+        return buildErrorResponse(HttpStatus.NOT_FOUND, ex);
     }
 
-    private ResponseEntity<Object> buildErrorResponse(HttpStatus status, Exception exception){
+    private ResponseEntity<Object> buildErrorResponse(HttpStatus status, Exception exception) {
         Map<String, Object> body = new LinkedHashMap<>();
         body.put("timestamp", LocalDateTime.now());
         body.put("status", HttpStatus.NOT_FOUND);

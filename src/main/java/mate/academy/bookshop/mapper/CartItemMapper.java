@@ -2,7 +2,6 @@ package mate.academy.bookshop.mapper;
 
 import mate.academy.bookshop.config.MapperConfig;
 import mate.academy.bookshop.dto.shoppingcart.CartItemDto;
-import mate.academy.bookshop.dto.shoppingcart.ShoppingCartDto;
 import mate.academy.bookshop.dto.shoppingcart.ShoppingCartRequestDto;
 import mate.academy.bookshop.model.Book;
 import mate.academy.bookshop.model.CartItem;

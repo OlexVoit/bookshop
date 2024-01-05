@@ -13,5 +13,6 @@ public class AddToCartRequestDto {
     private Long bookId;
 
     @Positive(message = POSITIVE_VALUE)
+    @NotNull(message = NULL_FIELD_MESSAGE)
     private int quantity;
 }

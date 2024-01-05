@@ -45,15 +45,28 @@ public class CustomGlobalExceptionHandler extends ResponseEntityExceptionHandler
         return error.getDefaultMessage();
     }
 
-    @ExceptionHandler({EntityNotFoundException.class, RegistrationException.class})
-    protected ResponseEntity<Object> handleException(Exception ex) {
-        HttpStatus status = (ex instanceof EntityNotFoundException)
-                ? HttpStatus.NOT_FOUND : HttpStatus.BAD_REQUEST;
+    @ExceptionHandler({RegistrationException.class})
+    protected ResponseEntity<Object> handleExceptionRegistrationException(
+            RegistrationException ex) {
+        return buildErrorResponse(HttpStatus.BAD_REQUEST, ex);
+    }
+
+    @ExceptionHandler({UnauthorizedOperationException.class})
+    protected ResponseEntity<Object> handleUnauthorizedOperationException(
+            UnauthorizedOperationException ex) {
+        return buildErrorResponse(HttpStatus.NETWORK_AUTHENTICATION_REQUIRED, ex);
+    }
+
+    @ExceptionHandler({ResourceNotFoundException.class, EntityNotFoundException.class})
+    protected ResponseEntity<Object> handleExceptionResourceNotFoundAndEntityNot(Exception ex) {
+        return buildErrorResponse(HttpStatus.NOT_FOUND, ex);
+    }
+
+    private ResponseEntity<Object> buildErrorResponse(HttpStatus status, Exception exception) {
         Map<String, Object> body = new LinkedHashMap<>();
         body.put("timestamp", LocalDateTime.now());
-        body.put("status", status);
-        body.put("message", ex.getMessage());
+        body.put("status", HttpStatus.NOT_FOUND);
+        body.put("message", exception.getMessage());
         return new ResponseEntity<>(body, status);
     }
 }
-

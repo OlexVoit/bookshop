@@ -13,6 +13,7 @@ import mate.academy.bookshop.model.Book;
 import mate.academy.bookshop.model.ShoppingCart;
 import mate.academy.bookshop.model.User;
 import mate.academy.bookshop.repository.BookRepository;
+import mate.academy.bookshop.repository.CartItemRepository;
 import mate.academy.bookshop.repository.ShoppingCartRepository;
 import mate.academy.bookshop.repository.UserRepository;
 import mate.academy.bookshop.service.ShoppingCartService;
@@ -27,6 +28,7 @@ public class ShoppingCartServiceImpl implements ShoppingCartService {
     private final UserRepository userRepository;
     private final ShoppingCartMapper shoppingCartMapper;
     private final CartItemServiceImpl cartItemService;
+    private final CartItemRepository cartItemRepository;
 
     @Override
     @Transactional
@@ -54,10 +56,11 @@ public class ShoppingCartServiceImpl implements ShoppingCartService {
         shoppingCartRepository.findById(cartId)
                 .ifPresent(shoppingCarts -> {
                     if (Objects.equals(shoppingCarts.getUser().getId(), userId)) {
-                        cartItemService.deleteCartItem(cartId);
+                        cartItemRepository.deleteById(userId);
                     } else {
-                        throw new UnauthorizedOperationException("User is not authorized "
-                                + "to delete this shopping cart");
+                        throw new UnauthorizedOperationException(
+                                "Can't find cart item by id %s for user with id %s"
+                                        .formatted(cartId, userId));
                     }
                 });
         throw new ResourceNotFoundException("The cart item was not found or deleted. Id: "

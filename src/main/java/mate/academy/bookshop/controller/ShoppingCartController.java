@@ -52,12 +52,12 @@ public class ShoppingCartController {
     @ResponseStatus(HttpStatus.NO_CONTENT)
     @Operation(summary = "Delete a cartItem")
     @DeleteMapping("/{id}")
-    void delete(@PathVariable Long id, Authentication authentication) {
+   public void delete(@PathVariable Long id, Authentication authentication) {
         User user = (User) authentication.getPrincipal();
         shoppingCartService.deleteCartItem(id, user.getId());
     }
 
-    @PreAuthorize("hasRole('USER')")
+    @PreAuthorize("hasAnyRole('USER')")
     @PutMapping("/cart-items/{id}")
     @Operation(summary = "Update books quantity",
             description = "Update quantity of a book in the shopping cart")

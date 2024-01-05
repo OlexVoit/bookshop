@@ -46,12 +46,14 @@ public class CustomGlobalExceptionHandler extends ResponseEntityExceptionHandler
     }
 
     @ExceptionHandler({RegistrationException.class})
-    protected ResponseEntity<Object> handleExceptionRegistrationException(Exception ex) {
+    protected ResponseEntity<Object> handleExceptionRegistrationException(
+            RegistrationException ex) {
         return buildErrorResponse(HttpStatus.BAD_REQUEST, ex);
     }
 
     @ExceptionHandler({UnauthorizedOperationException.class})
-    protected ResponseEntity<Object> handleExceptionUnauthorized(Exception ex) {
+    protected ResponseEntity<Object> handleUnauthorizedOperationException(
+            UnauthorizedOperationException ex) {
         return buildErrorResponse(HttpStatus.NETWORK_AUTHENTICATION_REQUIRED, ex);
     }
 

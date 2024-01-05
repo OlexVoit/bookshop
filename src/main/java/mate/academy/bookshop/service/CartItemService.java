@@ -8,7 +8,5 @@ public interface CartItemService {
 
     CartItemDto updateById(Long id, int quantity);
 
-    void deleteCartItem(Long id);
-
     void save(int quantity, Book book, ShoppingCart shoppingCart);
 }

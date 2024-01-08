@@ -60,7 +60,7 @@ public class Order {
     @Column(nullable = false)
     private boolean isDeleted = false;
 
-   public enum Status {
+    public enum Status {
         PENDING, DELIVERED, COMPLETED, PROCESSING
     }
 }

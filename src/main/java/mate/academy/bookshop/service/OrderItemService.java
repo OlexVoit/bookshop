@@ -1,8 +1,7 @@
 package mate.academy.bookshop.service;
 
-import mate.academy.bookshop.dto.order.OrderItemResponseDto;
-
 import java.util.List;
+import mate.academy.bookshop.dto.order.OrderItemResponseDto;
 
 public interface OrderItemService {
 

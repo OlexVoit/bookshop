@@ -2,6 +2,7 @@ package mate.academy.bookshop.model;
 
 import jakarta.persistence.Column;
 import jakarta.persistence.Entity;
+import jakarta.persistence.FetchType;
 import jakarta.persistence.GeneratedValue;
 import jakarta.persistence.GenerationType;
 import jakarta.persistence.Id;
@@ -31,7 +32,7 @@ public class Order {
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
 
-    @ManyToOne
+    @ManyToOne(fetch = FetchType.LAZY)
     @EqualsAndHashCode.Exclude
     @ToString.Exclude
     @JoinColumn(nullable = false, name = "user_id")
@@ -60,6 +61,6 @@ public class Order {
     private boolean isDeleted = false;
 
    public enum Status {
-        PENDING, DELIVERED, COMPLETED
+        PENDING, DELIVERED, COMPLETED, PROCESSING
     }
 }

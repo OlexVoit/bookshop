@@ -6,7 +6,7 @@ import mate.academy.bookshop.dto.order.OrderResponseDto;
 import mate.academy.bookshop.dto.order.UpdateOrderRequestDto;
 
 public interface OrderService {
-    OrderResponseDto placeAnOrder(Long id, OrderRequestDto requestDto);
+    OrderResponseDto placeOrder(Long id, OrderRequestDto requestDto);
 
     List<OrderResponseDto> getAll(Long id);
 

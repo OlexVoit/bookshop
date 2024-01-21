@@ -3,6 +3,8 @@ package mate.academy.bookshop.controller;
 import io.swagger.v3.oas.annotations.Operation;
 import io.swagger.v3.oas.annotations.tags.Tag;
 import java.util.List;
+
+import jakarta.validation.Valid;
 import lombok.RequiredArgsConstructor;
 import mate.academy.bookshop.dto.order.OrderItemResponseDto;
 import mate.academy.bookshop.dto.order.OrderRequestDto;
@@ -11,6 +13,7 @@ import mate.academy.bookshop.dto.order.UpdateOrderRequestDto;
 import mate.academy.bookshop.model.User;
 import mate.academy.bookshop.service.OrderItemService;
 import mate.academy.bookshop.service.OrderService;
+import org.springframework.data.domain.Pageable;
 import org.springframework.security.access.prepost.PreAuthorize;
 import org.springframework.security.core.Authentication;
 import org.springframework.web.bind.annotation.GetMapping;
@@ -34,8 +37,9 @@ public class OrderController {
     @Operation(summary = "Get all items by order id",
             description = "Get all OrderItems for a specific user"
     )
-    public List<OrderItemResponseDto> getAllById(@PathVariable Long id) {
-        return orderItemService.getAllById(id);
+    public List<OrderItemResponseDto> getAllById(Pageable pageable,
+                                                 @PathVariable Long id) {
+        return orderItemService.getAllById(pageable, id);
     }
 
     @PreAuthorize("hasRole('ROLE_USER')")
@@ -50,10 +54,10 @@ public class OrderController {
     @PostMapping
     @Operation(summary = "Place an order", description = "The user can place an order")
     public OrderResponseDto placeOrder(Authentication authentication,
-                                       @RequestBody OrderRequestDto requestDto
+                                       @RequestBody @Valid OrderRequestDto requestDto
     ) {
         User user = (User) authentication.getPrincipal();
-        return orderService.placeAnOrder(user.getId(), requestDto);
+        return orderService.placeOrder(user.getId(), requestDto);
     }
 
     @PreAuthorize("hasRole('ROLE_ADMIN')")
@@ -61,7 +65,7 @@ public class OrderController {
     @Operation(summary = "Change order status",
             description = "Only the admin can change the order status")
     public OrderResponseDto updateStatus(@PathVariable Long id,
-                                         @RequestBody UpdateOrderRequestDto requestDto) {
+                                         @RequestBody @Valid UpdateOrderRequestDto requestDto) {
         return orderService.updateStatus(id, requestDto);
     }
 

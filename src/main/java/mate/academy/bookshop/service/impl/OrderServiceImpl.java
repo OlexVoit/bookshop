@@ -35,7 +35,7 @@ public class OrderServiceImpl implements OrderService {
 
     @Override
     @Transactional
-    public OrderResponseDto placeAnOrder(Long id, OrderRequestDto requestDto) {
+    public OrderResponseDto placeOrder(Long id, OrderRequestDto requestDto) {
         ShoppingCart shoppingCart = shoppingCartRepository.findByUserId(id).orElseThrow(
                 () -> new EntityNotFoundException("Can't find cart by user id: " + id)
         );

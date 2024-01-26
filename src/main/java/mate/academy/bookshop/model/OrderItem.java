@@ -39,7 +39,7 @@ public class OrderItem {
     private Book book;
 
     @Column(nullable = false)
-    private int quantity;
+    private Integer quantity;
 
     @Column(nullable = false)
     private BigDecimal price;

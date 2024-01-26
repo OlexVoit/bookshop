@@ -44,9 +44,10 @@ public class OrderController {
     @PreAuthorize("hasRole('ROLE_USER')")
     @GetMapping
     @Operation(summary = "Get all orders", description = "The user can receive his orders")
-    public List<OrderResponseDto> getAll(Authentication authentication) {
+    public List<OrderResponseDto> getAll(Pageable pageable,
+                                         Authentication authentication) {
         User user = (User) authentication.getPrincipal();
-        return orderService.getAll(user.getId());
+        return orderService.getAll(user.getId(), pageable);
     }
 
     @PreAuthorize("hasRole('ROLE_USER')")

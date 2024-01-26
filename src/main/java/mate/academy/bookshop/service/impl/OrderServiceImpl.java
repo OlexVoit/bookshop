@@ -21,6 +21,7 @@ import mate.academy.bookshop.repository.OrderItemRepository;
 import mate.academy.bookshop.repository.OrderRepository;
 import mate.academy.bookshop.repository.ShoppingCartRepository;
 import mate.academy.bookshop.service.OrderService;
+import org.springframework.data.domain.Pageable;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
@@ -50,14 +51,15 @@ public class OrderServiceImpl implements OrderService {
     }
 
     @Override
-    public List<OrderResponseDto> getAll(Long id) {
-        List<Order> orderList = orderRepository.findAllById(id);
+    public List<OrderResponseDto> getAll(Long id, Pageable pageable) {
+        List<Order> orderList = orderRepository.findAllById(id, pageable);
         return orderList.stream()
                 .map(orderMapper::toDto)
                 .toList();
     }
 
     @Override
+    @Transactional
     public OrderResponseDto updateStatus(Long id, UpdateOrderRequestDto requestDto) {
         Order order = orderRepository.findById(id).orElseThrow(
                 () -> new EntityNotFoundException("Can't find order by id: " + id)
